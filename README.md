@@ -31,7 +31,7 @@ Additional binaries should be included in config/includes.chroot/usr/bin
 
 To build
 --------
-clone repo, or us lb config --config ttps://github.com/MiWCryptoCurrencyMinerAgent/MA-DebianLiveConf/
+clone repo, or us lb config --config https://github.com/MiWCryptoCurrencyMinerAgent/MA-DebianLiveConf/
 
 to build, run: lb build
 
