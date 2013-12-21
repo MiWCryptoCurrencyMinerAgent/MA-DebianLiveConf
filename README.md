@@ -22,10 +22,17 @@ apt-get install live-boot live-boot-doc live-boot-initramfs-tools live-build liv
 
 If you wish to compile the miners, you will need to clone the ptsminer and primeminer repos from https://github.com/thbaumbach/
 
-*! Care should be taken with trusting miner binaries from unknown sources.
-*! They could easily contain back doors or substitute payout addresses. This has occured In The Wild!
+Care should be taken with trusting miner binaries from unknown sources.
+-----------------------------------------------------------------------
+They could easily contain back doors or substitute payout addresses. This has occured In The Wild!
+
 
 Additional binaries should be included in config/includes.chroot/usr/bin
 
-To build, run: lb build
+To build
+--------
+clone repo, or us lb config --config ttps://github.com/MiWCryptoCurrencyMinerAgent/MA-DebianLiveConf/
+
+to build, run: lb build
+
 some time later you should have a binary called: live-image-amd64.hybrid.iso
