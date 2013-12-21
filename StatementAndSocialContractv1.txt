@@ -1,0 +1,11 @@
+Statement and Social Contract v1
+
+1. I would never knowingly write or distribute software containing weaknesses, back doors, cryptographic flaws or vulnerabilities.
+
+2. If a vulnerability or otherwise is discovered in any software written or distributed by me, I will take the appropriate measures to reduce the risk to my users and fix the vulnerability.
+
+3. This software may contain open source libraries or binaries that could contain unknown vulnerabilities. If a vulnerability is discovered, I will replace or patch the vulnerable component. You will not hold me liable for the vulnerabilities in others software.
+
+4. If you discover an issue or bug in any software written or distributed by me, please responsibly disclose this to me.
+
+5. I will cryptographically attribute my work, so in the event a malicious attacker impersonates me for the purpose of introducing vulnerabilities, it will be possible to verify that it did not originate from me.

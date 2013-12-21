@@ -1,0 +1,71 @@
+#!/bin/bash
+## Customised for xpmagent v1
+## live-config(7) - System Configuration Components
+## Copyright (C) 2006-2013 Daniel Baumann <mail@daniel-baumann.ch>
+##
+## This program comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
+## This is free software, and you are welcome to redistribute it
+## under certain conditions; see COPYING for details.
+
+
+set -e
+
+Cmdline ()
+{
+	# Reading kernel command line
+	for _PARAMETER in ${LIVE_CONFIG_CMDLINE}
+	do
+		case "${_PARAMETER}" in
+			live-config.hostname=*|hostname=*)
+				LIVE_HOSTNAME="${_PARAMETER#*hostname=}"
+				;;
+		esac
+	done
+}
+
+Init ()
+{
+	# Checking if package is installed or already configured
+	if [ -z "${LIVE_HOSTNAME}" ] || \
+	   [ -e /var/lib/live/config/hostname ]
+	then
+		exit 0
+	fi
+
+	echo -n " hostname"
+}
+Config ()
+{
+        
+		
+		# no openssl :-(
+		#r1=`openssl rand -hex 2`
+		#r2=`openssl rand -hex 2`
+       		#r3=`openssl rand -hex 2`
+		#r4=`openssl rand -hex 2`
+		r1=`od -vAn -N2 -x < /dev/urandom`
+                r2=`od -vAn -N2 -x < /dev/urandom`
+                r3=`od -vAn -N2 -x < /dev/urandom`
+                r4=`od -vAn -N2 -x < /dev/urandom`
+	
+		LIVE_SPACES_HOSTNAME="X$r1-P$r2-$r3-M$r4"
+		LIVE_HOSTNAME=`echo $LIVE_SPACES_HOSTNAME | sed 's/ //g'`
+		echo "${LIVE_HOSTNAME}" > /etc/hostname
+
+cat > /etc/hosts << EOF
+127.0.0.1       localhost ${LIVE_HOSTNAME}
+::1             localhost ip6-localhost ip6-loopback
+fe00::0         ip6-localnet
+ff00::0         ip6-mcastprefix
+ff02::1         ip6-allnodes
+ff02::2         ip6-allrouters
+EOF
+	hostname "${LIVE_HOSTNAME}" || true
+
+	# Creating state file
+	touch /var/lib/live/config/hostname
+}
+
+Cmdline
+Init
+Config

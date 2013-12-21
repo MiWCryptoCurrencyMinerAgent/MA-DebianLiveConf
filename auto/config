@@ -1,0 +1,58 @@
+#!/bin/sh
+APT_CACHER="http://localhost:3142"
+APT_CACHER_BIN="http://localhost:3142"
+lb config noauto --distribution sid
+lb config noauto --parent-distribution sid
+lb config noauto --apt-secure true \
+-a amd64 \
+-b iso-hybrid --bootloader syslinux \
+--iso-application "MinerAgent" \
+--iso-preparer "MiW" \
+--iso-publisher "MiW" \
+--iso-volume "MinerAgent" \
+--firmware-binary true \
+--firmware-chroot true \
+--apt-indices false 
+lb config noauto --apt-recommends false
+lb config noauto --source false
+lb config noauto --checksums none
+
+# lb config noauto --initramfs auto
+# 
+lb config noauto --initramfs-compression lzma
+# lb config noauto -e aes256
+# lb config noauto -p minimal
+#  
+lb config noauto --compression lzma
+lb config noauto --cache false
+lb config noauto --cache-indices false
+lb config noauto --cache-packages false
+# mirrors. this is my closest. ideally this shouldnt leak into the iso,  but there are bugs...
+lb config noauto --parent-mirror-bootstrap "$APT_CACHER/mirror.internode.on.net/pub/debian/"
+lb config noauto --mirror-chroot "$APT_CACHER/mirror.internode.on.net/pub/debian/"
+lb config noauto --parent-mirror-bootstrap "$APT_CACHER/mirror.internode.on.net/pub/debian/"
+lb config noauto --parent-mirror-chroot "$APT_CACHER/mirror.internode.on.net/pub/debian/"
+# lb config noauto --mirror-chroot-volatile "$APT_CACHER/mirror.internode.on.net/pub/debian/"
+
+# this should prevent the image containing sources.list; it doesn't.
+lb config noauto --parent-mirror-binary ""
+lb config noauto --mirror-binary ""
+#size
+lb config noauto --debootstrap-options "--variant=minbase"
+lb config noauto --memtest none
+
+#only for debug builds
+#lb config noauto --bootappend-live "vga=791 boot=live config debug verbose live-config.debug
+#lb config noauto --verbose
+
+# normal build
+# 1024x768; your head should at least do this. and you want to read my nice motd
+lb config noauto --bootappend-live "vga=791 boot=live config" 
+lb config noauto --debian-installer false
+# its probably smaller without systemd
+# lb config noauto --initsystem systemd
+
+#no security in sid
+#lb config noauto --security true
+# sid has no updates, it is updates
+#lb config noauto --updates true
