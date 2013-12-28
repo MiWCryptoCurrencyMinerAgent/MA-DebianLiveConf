@@ -1,0 +1,16 @@
+#!/bin/bash
+# Verify miners bash script (needs openssl and gpg)
+# by MiW
+# Verify miners script version 1.0 (this is pretty basic...)
+echo Verifying the integrity of all signed binaries in /usr/bin
+echo -------------------------------------------------------
+for _BINARYSIG in $(ls /usr/bin/*.sig)
+do
+        _BINARY=$(echo $_BINARYSIG | sed -e "s/.sig//")
+        _BINARYSHA256=$(openssl dgst -sha256 $_BINARY)
+        _BINARYSIZE=$(ls --block-size=1 -s $_BINARY | cut -d" " -f1 )
+        echo $_BINARY $_BINARYSIZE bytes $_BINARYSHA256
+        gpg --verify $_BINARYSIG
+        echo -------------------------------------------------------
+done
+

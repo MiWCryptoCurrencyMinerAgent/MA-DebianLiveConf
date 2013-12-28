@@ -3,10 +3,12 @@ MA-DebianLiveConf
 
 Debian Live Configuration Scripts and Resources for MinerAgent
 By MiW
-* Miners by Xolokram: https://github.com/thbaumbach/ XPM (PrimeCoin) PTS (ProtoShares)
+* Xolokram by Xolokram: https://github.com/thbaumbach/ XPM (PrimeCoin) PTS (ProtoShares)
+* jhMiners by jh: https://github.com/tandyuk/jhPrimeminer https://github.com/PimenovAlexander/jhProtominer/network
 
 This git repo contains a working configuration tree and auto files for the scripted generation of the MinerAgent ISO with Debian Live http://live.debian.net/ on sid.
-This build is optimised for size. Including miners, this is approximately 110MB as an .iso
+
+This build is optimised for size. Including miners, this is approximately 100MB as an .iso
 
 Further optimisations are planned to reduce this size further. Care must be taken while mindlessly deleting files in stripped.sh; you can break the build process. Rigourous testing will be required.
 
@@ -20,7 +22,7 @@ It will build an image that provides:
 To install this debian-live toolkit, do:
 apt-get install live-boot live-boot-doc live-boot-initramfs-tools live-build live-config live-config-doc live-config-sysvinit live-manual-html live-manual-txt live-tools
 
-If you wish to compile the miners, you will need to clone the ptsminer and primeminer repos from https://github.com/thbaumbach/
+If you wish to compile the miners, you will need to clone the appropraite repo  or otherwise
 
 Care should be taken with trusting miner binaries from unknown sources.
 -----------------------------------------------------------------------

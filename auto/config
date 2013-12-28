@@ -1,6 +1,8 @@
-#!/bin/sh
+#/bin/sh
 APT_CACHER="http://localhost:3142"
 APT_CACHER_BIN="http://localhost:3142"
+#APT_MIRROR="mirror.internode.on.net"
+APT_MIRROR="ftp.debian.org"
 lb config noauto --distribution sid
 lb config noauto --parent-distribution sid
 lb config noauto --apt-secure true \
@@ -28,11 +30,11 @@ lb config noauto --cache false
 lb config noauto --cache-indices false
 lb config noauto --cache-packages false
 # mirrors. this is my closest. ideally this shouldnt leak into the iso,  but there are bugs...
-lb config noauto --parent-mirror-bootstrap "$APT_CACHER/mirror.internode.on.net/pub/debian/"
-lb config noauto --mirror-chroot "$APT_CACHER/mirror.internode.on.net/pub/debian/"
-lb config noauto --parent-mirror-bootstrap "$APT_CACHER/mirror.internode.on.net/pub/debian/"
-lb config noauto --parent-mirror-chroot "$APT_CACHER/mirror.internode.on.net/pub/debian/"
-# lb config noauto --mirror-chroot-volatile "$APT_CACHER/mirror.internode.on.net/pub/debian/"
+lb config noauto --parent-mirror-bootstrap "$APT_CACHER/$APT_MIRROR/debian/"
+lb config noauto --mirror-chroot "$APT_CACHER/$APT_MIRROR/debian/"
+lb config noauto --parent-mirror-bootstrap "$APT_CACHER/$APT_MIRROR/debian/"
+lb config noauto --parent-mirror-chroot "$APT_CACHER/$APT_MIRROR/debian/"
+# lb config noauto --mirror-chroot-volatile "$APT_CACHER/$APT_MIRROR/debian/"
 
 # this should prevent the image containing sources.list; it doesn't.
 lb config noauto --parent-mirror-binary ""
@@ -42,12 +44,12 @@ lb config noauto --debootstrap-options "--variant=minbase"
 lb config noauto --memtest none
 
 #only for debug builds
-#lb config noauto --bootappend-live "vga=791 boot=live config debug verbose live-config.debug
+lb config noauto --bootappend-live "vga=791 boot=live config debug verbose live-config.debug live-config.hooks=filesystem"
 #lb config noauto --verbose
 
 # normal build
 # 1024x768; your head should at least do this. and you want to read my nice motd
-lb config noauto --bootappend-live "vga=791 boot=live config" 
+lb config noauto --bootappend-live "vga=791 boot=live config live-config.hooks=filesystem" 
 lb config noauto --debian-installer false
 # its probably smaller without systemd
 # lb config noauto --initsystem systemd
