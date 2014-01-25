@@ -1,0 +1,54 @@
+#
+# Automatic mining configured with DHCP v2
+# By MiW 
+#
+# miner binary param sent by DHCP will do sig check then build a supervisor config file
+# we will also sanitise the options by removing any non alpha numeric and -
+# 
+
+AUTOMINE_ENABLED=$new_MinerAgent_automine_enabled
+
+if [ "$AUTOMINE_ENABLED" = "1" ]; then
+        if [ -n "$new_MinerAgent_miner_binary" ] && [ -n "$new_MinerAgent_miner_options" ]; then
+	        if [ -e "/etc/supervisor-autoconf" ]; then
+	                echo "Supervisor Autoconfiguration already done, exiting..."
+	                exit
+	        fi
+
+	        minerbin="$new_MinerAgent_miner_binary"
+	        # https://stackoverflow.com/questions/4273074/sanitize-user-input-in-bash-for-security-purposes
+		# "quoting" is sufficent to prevent command speration by supervisor and ultimately, shell.
+		mineroptions="$new_MinerAgent_miner_options"
+	        echo "checking signature on binary miner"
+        
+		# but lets scrub it for characters other than alphanumeric and dash. that should be ok for params, right?
+		# http://www.linuxquestions.org/questions/programming-9/user-input-into-bash-scripts-and-checking-validity-of-user-input-610847/
+		mineroptionsclean="`echo "${mineroptions}" | tr -cd '[:alnum:] [:space:]-=.'`"	
+	
+		gpg --verify /usr/bin/$minerbin.sig
+	        gpgreturn=$?
+        	if [ $gpgreturn -eq 1 ]; then
+	                echo "Error: Miner Binary $minerbin digital signature broken!"
+	                exit
+	        fi
+	        if [ $gpgreturn -eq 2 ]; then
+        	    echo "Error: Miner Binary $minerbin not found!"
+	            exit
+	        fi
+		if [ $gpgreturn -ne 0 ]; then
+		    echo "Error: GPG failed for some reason!"
+		    exit
+	        fi
+	
+	        echo "Signature OK! Generating Supervisor autoconfiguration"
+	        echo "[program:$minerbin]" > /tmp/supervisor_conf_$minerbin.conf
+	        echo "user=user" >> /tmp/supervisor_conf_$minerbin.conf
+	        echo "command=$minerbin $mineroptionsclean" >> /tmp/supervisor_conf_$minerbin.conf
+	        echo "stdout_logfile=syslog" >> /tmp/supervisor_conf_$minerbin.conf
+	        echo "stderr_logfile=syslog" >> /tmp/supervisor_conf_$minerbin.conf
+	        echo "autorestart=true" >> /tmp/supervisor_conf_$minerbin.conf
+	        mv /tmp/supervisor_conf_$minerbin.conf /etc/supervisor/conf.d/$minerbin.conf
+		/etc/init.d/supervisor restart
+	        touch /etc/supervisor-autoconf
+        fi
+fi

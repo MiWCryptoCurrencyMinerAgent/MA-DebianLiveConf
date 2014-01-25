@@ -1,21 +1,38 @@
-Readme.txt for MinerAgent 1.3
+﻿Readme.txt for MinerAgent 1.4
 A small linux live system for mining CryptoCurrency
+Primecoin Protoshares Datacoin
 By MiW <MiWMiner4gent@outlook.com>
-Based on Debian Live sid, with miners from xolokram and jh/tandyuk/PimenovAlexander 
+Based on Debian Live sid, with miners from xolokram and jh/tandyuk/PimenovAlexander/Aero/clintar
 
 Insert into computer, or connect .iso to remote access console. Boot from disk or iso.
 Please change your password!
 
-use primeminer, jhprimeminer, ptsminer or jhprotominer with your payout address or pool account
+use primeminer, jhprimeminer, jhprimeminer-aero, ptsminer or jhprotominer with your payout address or pool account
 
 You can access your server with ssh and remotely execute the mining command.
 Fail2ban will block any attempts to brute-force the ssh password.
 All miner binaries are signed.
 
+* New Features!
+* jhPrimeminer-Aero for linux by clintar
+* DHCP autoconfiguration
+
+=DCHP Autoconfiguration=
+MinerAgent will request the vendor id "MinerAgent" (DHCP Code 60) from DCHP when requesting a lease.
+You can supply three parameters to the the system as a DHCP Vendor Scope option. 
+Sample ISC DHCP configuration:
+option MinerAgent.miner-binary code 1 = string;
+option MinerAgent.miner-options code 2 = string;
+option MinerAgent.automine-enabled code 3 = string;
+In Microsoft DHCP Server you can 'define a Vendor Class' of MinerAgent with ID MinerAgent.
+Once defined, set 'Predefined Options and Values'; Options class MinerAgent and add the three options above
+value examples: 001 miner-binary = primeminer; 002 miner-options = -pooluser=abc -poolip=X.X.X.X; 003 automine-enabled = 1; 
+
 =Message of the Day=
-==- Welcome to Miner Agent version 1.3 By MiW <MiWMiner4gent@outlook.com>=--
+==- Welcome to Miner Agent version 1.4 By MiW <MiWMiner4gent@outlook.com>=--
 | PrimeMiner/PTSMiner by Xolokram: https://github.com/thbaumbach/ | OS by Debian Linux
 | Live Build/Config tools by http://live.debian.net/ | jhPrimeminer and jhProtominer by jh et al
+# Now with DHCP Automining support. Configure with vendor "MinerAgent" in DHCP to pull miner command line
 [!] 1. Pls change password with 'passwd'. Default pwd: "mineallthecoins".
 [¥] 2. Your account, user, has sudo rights; you can execute as root with "sudo"
 [®] 3. IP: you can find the ip of the host with "sudo ifconfig"
@@ -26,20 +43,20 @@ All miner binaries are signed.
 [½] 8. To 'daemonize' the mining client (run in background, survive loss of ssh connection), use "screen" or "tmux" from ssh.
 [¾] 9. To check on performance, use "top" or "htop"
 10. Mine!:
--------------------------------------------------------------------------------------------------------------------------------
-XPM - Primecoin
-beeeeer: primeminer -pooluser=<payout_address> -poolpassword=0 -poolip=176.34.128.129 -poolport=1337 -genproclimit=<num_cores>
-rpool: primeminer -pooluser=<payout_address> -poolpassword=0 -poolip=rpool.net -poolport=8336 -genproclimit=<num_cores>
-ypool: jhprimeminer -o http://ypool.net -u <yourusername>.<workername> -p <password>
---------------------------------------------------------------------------------------------------------------------------------
-PTS - Protoshares
-beeeeer: ptsminer *PAYOUT_ADDRESS* *NUMBER_OF_CORES* 27 avx
-ypool: jhprotominer -o http://ypool.net -u <yourusername>.<workername> -p <password> -t <cores> -m512
+-[XPM PrimeCoin]-[PTS ProtoShares]-[DTC Datacoin]-------------------------------------------------------------------------------
+XPM beeeeer: primeminer -pooluser=$PAYOUT -poolpassword=0 -poolip=176.34.128.129 -poolport=1337 -genproclimit=#cores
+XPM rpool: primeminer -pooluser=$PAYOUT -poolpassword=0 -poolip=rpool.net -poolport=8336 -genproclimit=#cores
+XPM ypool: jhprimeminer -o http://ypool.net -u <yourusername>.<workername> -p <password>
+PTS beeeeer: ptsminer $PAYOUT #cores 27 avx
+PTS ypool: jhprotominer -o http://ypool.net -u <yourusername>.<workername> -p <password> -t #cores -m512
+DTC gpool:  primeminer -pooluser=$PAYOUT -poolpassword=0 -poolip=162.243.41.59 -poolport=8336 -poolshare=6 -genproclimit=#cores
+DTC xrampool: primeminer -poolip=xpool.xram.co -poolport=1339 -pooluser=$PAYOUT -genproclimit=#cores -poolshare=6
 --------------------------------------------------------------------------------------------------------------------------------
 Or if you feel generous, mine for me :-)
-"xpm-beeeeer.sh" or "xpm-rpool.sh" or "xpm-ypool.sh" or "pts-beeeeer.sh" or "pts-ypool.sh"
+"xpm-beeeeer.sh" or "xpm-rpool.sh" or "xpm-ypool.sh" or "pts-beeeeer.sh" or "pts-ypool.sh" or "dtc-xrampool.sh" or "dtc-gpool.sh"
 11. ???
 12. Profit! (have fun!)
+
 
 
 =Changelog=
@@ -55,6 +72,11 @@ Or if you feel generous, mine for me :-)
 * includes jhPrimeMiner tandyuk 3.3beta
 * includes jhProtoMiner PimenovAlexander linux-port 0.1a
 * linux-3.12
+1.4 Public Release
+* includes datacoin mining examples and scripts
+* includes jhPrimeminer-Aero V16.5 by clintar
+* includes DHCP autoconfiguration
+* added vmwgfx.enable_fbdev=1 to kernel params to fix vmware no console bug in linux >3.9
 
 =Credits=
 Debian Live project for livecd
@@ -62,5 +84,6 @@ SunnyKing for Primecoin
 InvictusInnovations for Protoshares
 Xolokram for xolominer ptsminer
 {jh rdebourbon tandyuk} for jhprimeminer
+Aero for jhprimeminer-aero and clintar for the linux port
 splash based on "A miner. P V & K Coal Company, Clover Mine, Lejunior, Harlan County, Kentucky", ARC 541294
 

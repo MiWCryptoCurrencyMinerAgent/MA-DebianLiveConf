@@ -1,6 +1,7 @@
-==- Welcome to Miner Agent version 1.3 By MiW <MiWMiner4gent@outlook.com>=--
+==- Welcome to Miner Agent version 1.4 By MiW <MiWMiner4gent@outlook.com>=--
 | PrimeMiner/PTSMiner by Xolokram: https://github.com/thbaumbach/ | OS by Debian Linux
 | Live Build/Config tools by http://live.debian.net/ | jhPrimeminer and jhProtominer by jh et al
+# Now with DHCP Automining support. Configure with vendor "MinerAgent" in DHCP to pull miner command line
 [!] 1. Pls change password with 'passwd'. Default pwd: "mineallthecoins".
 [¥] 2. Your account, user, has sudo rights; you can execute as root with "sudo"
 [®] 3. IP: you can find the ip of the host with "sudo ifconfig"
@@ -11,17 +12,16 @@
 [½] 8. To 'daemonize' the mining client (run in background, survive loss of ssh connection), use "screen" or "tmux" from ssh.
 [¾] 9. To check on performance, use "top" or "htop"
 10. Mine!:
--------------------------------------------------------------------------------------------------------------------------------
-XPM - Primecoin
-beeeeer: primeminer -pooluser=<payout_address> -poolpassword=0 -poolip=176.34.128.129 -poolport=1337 -genproclimit=<num_cores>
-rpool: primeminer -pooluser=<payout_address> -poolpassword=0 -poolip=rpool.net -poolport=8336 -genproclimit=<num_cores>
-ypool: jhprimeminer -o http://ypool.net -u <yourusername>.<workername> -p <password>
---------------------------------------------------------------------------------------------------------------------------------
-PTS - Protoshares
-beeeeer: ptsminer *PAYOUT_ADDRESS* *NUMBER_OF_CORES* 27 avx
-ypool: jhprotominer -o http://ypool.net -u <yourusername>.<workername> -p <password> -t <cores> -m512
+-[XPM PrimeCoin]-[PTS ProtoShares]-[DTC Datacoin]-------------------------------------------------------------------------------
+XPM beeeeer: primeminer -pooluser=$PAYOUT -poolpassword=0 -poolip=176.34.128.129 -poolport=1337 -genproclimit=#cores
+XPM rpool: primeminer -pooluser=$PAYOUT -poolpassword=0 -poolip=rpool.net -poolport=8336 -genproclimit=#cores
+XPM ypool: jhprimeminer -o http://ypool.net -u <yourusername>.<workername> -p <password>
+PTS beeeeer: ptsminer $PAYOUT #cores 27 avx
+PTS ypool: jhprotominer -o http://ypool.net -u <yourusername>.<workername> -p <password> -t #cores -m512
+DTC gpool:  primeminer -pooluser=$PAYOUT -poolpassword=0 -poolip=162.243.41.59 -poolport=8336 -poolshare=6 -genproclimit=#cores
+DTC xrampool: primeminer -poolip=xpool.xram.co -poolport=1339 -pooluser=$PAYOUT -genproclimit=#cores -poolshare=6
 --------------------------------------------------------------------------------------------------------------------------------
 Or if you feel generous, mine for me :-)
-"xpm-beeeeer.sh" or "xpm-rpool.sh" or "xpm-ypool.sh" or "pts-beeeeer.sh" or "pts-ypool.sh"
+"xpm-beeeeer.sh" or "xpm-rpool.sh" or "xpm-ypool.sh" or "pts-beeeeer.sh" or "pts-ypool.sh" or "dtc-xrampool.sh" or "dtc-gpool.sh"
 11. ???
 12. Profit! (have fun!)

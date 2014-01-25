@@ -1,0 +1,39 @@
+#
+# ssh from dhcp script
+# By MiW 
+#
+# pulls the public key out of dhcp and puts it in the users authorised key file
+# this allows secure remote access with the ssh private key
+# it will also disable password authentication
+# 
+# This script doesnt work right under windows dhcp :-(
+# Microsoft uses DHCP option 250 msdn.microsoft.com/en-us/library/cc227283.aspx
+# which doesnt allow a long ssh key to used.
+# if time permits, we will investigating adding this Microsoft standard to ISC DHCP
+
+AUTOCONFSSHPUBLICKEY=$new_MinerAgent_ssh_public_key
+
+if [ -e "/etc/ssh-public-key-autoconf" ]; then
+                        echo "SSH Public Key Autoconfiguration already done, exiting..."
+                        exit
+fi
+
+
+if [ -n "$AUTOCONFSSHPUBLICKEY" ]; then
+        echo "Adding DHCP public key to authorized keys..."
+	if [ ! -f /home/user/.ssh ]; then
+        mkdir /home/user/.ssh
+	chmod 700 /home/user/.ssh
+	fi
+		
+	touch /home/user/.ssh/authorized_keys
+	chmod 600 /home/user/.ssh/authorized_keys
+	echo $SSHPUBLICKEY >> /home/user/.ssh/authorized_keys
+	chown -R user:user /home/user/.ssh/
+
+	echo $SSHPUBLICKEY added!
+	echo "Disabling password authentication over SSH"
+	sed -i 's/#PasswordAuthentication yes/PasswordAuthentication no/g' /etc/ssh/sshd_config
+	/etc/init.d/ssh reload
+	touch /etc/ssh-public-key-autoconf
+fi

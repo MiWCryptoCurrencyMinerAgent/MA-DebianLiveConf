@@ -6,9 +6,10 @@ APT_MIRROR="ftp.debian.org"
 lb config noauto --distribution sid
 lb config noauto --parent-distribution sid
 lb config noauto --apt-secure true \
--a amd64 \
--b iso-hybrid --bootloader syslinux \
---iso-application "MinerAgent" \
+lb config noauto -a amd64 
+lb config noauto  -b iso-hybrid 
+# lb config noauto --bootloader isolinux 
+lb config noauto --iso-application "MinerAgent" \
 --iso-preparer "MiW" \
 --iso-publisher "MiW" \
 --iso-volume "MinerAgent" \
@@ -19,7 +20,7 @@ lb config noauto --apt-recommends false
 lb config noauto --source false
 lb config noauto --checksums none
 
-# lb config noauto --initramfs auto
+#lb config noauto --initramfs auto
 # 
 lb config noauto --initramfs-compression lzma
 # lb config noauto -e aes256
@@ -49,7 +50,8 @@ lb config noauto --bootappend-live "vga=791 boot=live config debug verbose live-
 
 # normal build
 # 1024x768; your head should at least do this. and you want to read my nice motd
-lb config noauto --bootappend-live "vga=791 boot=live config live-config.hooks=filesystem" 
+# had to add vmwgfx.enable_fbdev=1 to fix console hang on VMWare
+lb config noauto --bootappend-live "vga=791 boot=live config live-config.hooks=filesystem vmwgfx.enable_fbdev=1" 
 lb config noauto --debian-installer false
 # its probably smaller without systemd
 # lb config noauto --initsystem systemd

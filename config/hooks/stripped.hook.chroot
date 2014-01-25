@@ -54,3 +54,6 @@ for FILE in $(find /var/log/ -type f)
 do
 	: > ${FILE}
 done
+
+#but fail2ban doesnt like no auth.og 
+touch /var/log/auth.log
