@@ -23,7 +23,8 @@ if [ "$AUTOMINE_ENABLED" = "1" ]; then
         
 		# but lets scrub it for characters other than alphanumeric and dash. that should be ok for params, right?
 		# http://www.linuxquestions.org/questions/programming-9/user-input-into-bash-scripts-and-checking-validity-of-user-input-610847/
-		mineroptionsclean="`echo "${mineroptions}" | tr -cd '[:alnum:] [:space:]-=.'`"	
+		# we ned dot colon minus equals slash and az0-9
+		mineroptionsclean="`echo "${mineroptions}" | tr -cd '[:alnum:] [:space:]-=.:/'`"
 	
 		gpg --verify /usr/bin/$minerbin.sig
 	        gpgreturn=$?
@@ -48,6 +49,7 @@ if [ "$AUTOMINE_ENABLED" = "1" ]; then
 	        echo "stderr_logfile=syslog" >> /tmp/supervisor_conf_$minerbin.conf
 	        echo "autorestart=true" >> /tmp/supervisor_conf_$minerbin.conf
 	        mv /tmp/supervisor_conf_$minerbin.conf /etc/supervisor/conf.d/$minerbin.conf
+		sleep 2
 		/etc/init.d/supervisor restart
 	        touch /etc/supervisor-autoconf
         fi
