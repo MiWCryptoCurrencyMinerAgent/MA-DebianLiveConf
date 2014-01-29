@@ -12,7 +12,7 @@ Please change your password! Execute miner binary. Profit!
 MinerAgent is a small [~100MB] (Linux) Debian Live iso, preconfigured for CPU Mining Crytocurrency
 (Primecoin Protoshares Quark Datacoin SHA256D Bitcoin Namecoin Peercoin SCRYPT Litecoin Dogecoin Worldcoin Megacoin)
 it comes with all needed libraries, sshd, perl, python, fail2ban, htop, screen & tmux
-It includes xolokrams primeminer/ptsminer & jh000 jhprimeminer/jhprotominer & clintars jhprimeminer-aero & uncle-bob minerd
+It includes xolokrams primeminer/ptsminer & jh000 jhprimeminer/jhprotominer & clintars jhprimeminer-aero & uncle-bob minerd & primewatch.sh
 It uses Debian sid (Linux 3.12; libboost-1.54; openssl-1.0.1f; libgmp-5.1.3; libdb-6.0; libc-2.17)
 
 It has been tested on Oracle VirtualBox and VMWare Player and a range of other desktop, laptop and server devices.
@@ -39,7 +39,8 @@ Change your password!
 
 =Whats new in 1.4.1?=
 * New Features! (Now supports CPU mining many cryptocurrencies)
-Uncle-bob minerd for quark (+scrypt + sha256)
+* Uncle-bob minerd for quark (+scrypt + sha256)
+* arkheibuz primewatch script
 
 =DCHP Autoconfiguration=
 MinerAgent will request the vendor id "MinerAgent" (DHCP Code 60) from DCHP when requesting a lease.
@@ -111,6 +112,7 @@ or "qrk-minepool.sh" or "xxx-multipoolscrypt.sh" or "xxx-multipoolsha256d.sh"
 * minerd for generic scrypt cpu mining... (LTC DOGE etc)
 * fixed bug where / and : are needed chars in dhcp autoconf
 * added 2 second time delay to supervisor generate for vmware timing issue
+* added arkhebuz primewatch script
 
 =Credits=
 Debian Live project for livecd http://www.debian.org
@@ -120,4 +122,5 @@ Xolokram for xolominer ptsminer  https://github.com/thbaumbach/
 {jh rdebourbon tandyuk} for jhprimeminer https://github.com/tandyuk
 Aero for jhprimeminer-aero and clintar for the linux port https://github.com/clintar/jhPrimeminer-Aero/
 Uncle-bob, Neisklar, pooler for minerd and quark-minerd https://github.com/uncle-bob/quarkcoin-cpuminer
+primewatch.sh by arkhebuz https://github.com/arkhebuz/primewatch
 splash based on "A miner. P V & K Coal Company, Clover Mine, Lejunior, Harlan County, Kentucky", ARC 541294
