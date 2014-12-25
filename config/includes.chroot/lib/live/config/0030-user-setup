@@ -1,14 +1,14 @@
 #!/bin/sh
 
 ## live-config(7) - System Configuration Components
-## Copyright (C) 2006-2013 Daniel Baumann <mail@daniel-baumann.ch>
+## Copyright (C) 2006-2014 Daniel Baumann <mail@daniel-baumann.ch>
 ##
 ## This program comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
 ## This is free software, and you are welcome to redistribute it
 ## under certain conditions; see COPYING for details.
 
 
-set -e
+#set -e
 
 Cmdline ()
 {
@@ -65,12 +65,13 @@ Config ()
 	esac
 
 	# Default password is: live
-	# passwords can be generated with 'echo "live" | mkpasswd -s',
-	# a blank password is 'U6aMy0wojraho'.
-	# _PASSWORD="8Ab05sVQ4LLps"
-	# new password mineallthecoins
-	_PASSWORD="pGqu6pC02k3qw"
+        # passwords can be generated with 'echo "live" | mkpasswd -s',
+        # a blank password is 'U6aMy0wojraho'.
+        # _PASSWORD="8Ab05sVQ4LLps"
+        # new password mineallthecoins
+        _PASSWORD="pGqu6pC02k3qw"
 
+	
 cat > /tmp/live-config.cfg << EOF
 user-setup passwd/make-user boolean true
 user-setup passwd/root-password-crypted string *

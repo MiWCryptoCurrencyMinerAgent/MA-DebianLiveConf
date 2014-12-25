@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/sh -x
 # Even more stripped by MiW
 ## live-build(7) - System Build Scripts
 ## Copyright (C) 2006-2013 Daniel Baumann <mail@daniel-baumann.ch>
@@ -49,6 +49,254 @@ rm -rf /var/cache/man/*
 # (dont?!) nuke apt!!
 # rm -rf /etc/apt/*
 
+#busybox links for MinerAgent
+## from http://www.jukie.net/bart/blog/20081011081638
+## thx Bart!
+cd /bin
+#rm /usr/bin/[
+#rm [[
+#rm ar
+#rm arp
+#rm arping
+#rm ash
+# remove mawk to use busybox awk
+rm /usr/bin/awk
+rm /usr/bin/mawk
+rm /usr/bin/basename
+#rm blockdev
+#rm brctl
+#rm bunzip2
+#rm bzcat
+#rm bzip2
+#rm cal
+cp cat cat.bak
+rm chgrp
+rm chmod
+rm chown
+#cp chroot chroot.bak
+#rm chvt
+rm /usr/bin/clear
+rm /usr/bin/cmp
+cp cp cp.bak
+cp cpio cpio.bak
+#rm cttyhack
+rm /usr/bin/cut
+rm date
+#rm dc
+rm dd
+#rm deallocvt
+# rm /sbin/depmod
+#rm devmem
+rm df
+rm dmesg
+rm dnsdomainname
+#rm dos2unix
+rm /usr/bin/du
+#rm dumpkmap
+#rm dumpleases
+rm echo
+cp egrep egrep.bak
+ln -fs busybox /usr/bin/env
+rm /usr/bin/expand
+rm /usr/bin/expr
+rm false
+cp fgrep fgrep.bak
+# rm /usr/bin/find
+rm /usr/bin/fold
+rm /usr/bin/free
+#rm freeramdisk
+#rm fstrim
+#rm ftpget
+#rm ftpput
+rm /usr/bin/getopt
+#rm getty
+cp grep grep.bak
+rm /usr/bin/groups
+rm gunzip
+rm gzip
+#rm halt
+rm /usr/bin/head
+#rm hexdump
+rm /usr/bin/hostid
+rm hostname
+#rm httpd
+#rm hwclock
+rm /usr/bin/id
+#rm ifconfig
+#rm /sbin/init
+#rm /sbin/insmod
+rm /usr/bin/ionice
+rm /sbin/ip
+rm ip
+#rm ipcalc
+rm kill
+rm /usr/bin/killall
+#rm klogd
+cp kmod kmod.bak
+rm /usr/bin/last
+#rm less
+ln -fs busybox ln
+#rm loadfont
+#rm loadkmap
+rm /usr/bin/logger
+rm login
+rm /usr/bin/logname
+#rm logread
+#rm /sbin/losetup
+cp ls ls.bak
+#rm /sbin/lsmod
+rm lsmod
+#rm lzcat
+#rm lzma
+#rm lzop
+#rm lzopcat
+#rm /usr/bin/md5sum
+#rm mdev
+#rm microcom
+rm mkdir
+rm /usr/bin/mkfifo
+rm mknod
+#rm mkswap
+rm mktemp
+# rm /sbin/modinfo
+# ln -fs busybox /sbin/modprobe
+rm more
+cp mount mount.bak
+#remove mt-gnu
+rm mt-gnu
+rm mt
+rm mv
+#rm /sbin/nameif
+#rm nc
+#rm netstat
+#rm nslookup
+rm /usr/bin/od
+#rm openvt
+#rm patch
+rm pidof
+#rm ping
+#rm ping6
+#rm pivot_root
+rm /sbin/poweroff
+rm /usr/bin/printf
+cp ps ps.bak
+rm pwd
+#rm rdate
+rm readlink
+rm /usr/bin/realpath
+rm /sbin/reboot
+rm /usr/bin/renice
+rm /usr/bin/reset
+rm /usr/bin/rev
+rm rmdir
+#ln -fs busybox /sbin/rmmod
+#rm /sbin/route
+#rm rpm
+#rm rpm2cpio
+cp run-parts run-parts.bak
+rm sed
+rm /usr/bin/seq
+#rm setkeycodes
+rm /usr/bin/setsid
+cp sh sh.bak
+rm /usr/bin/sha1sum
+rm /usr/bin/sha256sum
+rm /usr/bin/sha512sum
+rm sleep
+rm /usr/bin/sort
+rm /sbin/start-stop-daemon
+#rm /usr/bin/stat
+#rm strings
+rm stty
+rm /sbin/swapoff
+rm /sbin/swapon
+rm /sbin/switch_root
+rm sync
+rm /sbin/sysctl
+#rm syslogd
+rm /usr/bin/tac
+rm /usr/bin/tail
+cp tar tar.bak
+rm /usr/bin/taskset
+rm /usr/bin/tee
+# rm telnet
+rm /usr/bin/test
+#rm tftp
+#rm time
+rm /usr/bin/timeout
+rm /usr/bin/top
+rm /usr/bin/touch
+rm touch
+rm /usr/bin/tr
+#rm traceroute
+#rm traceroute6
+rm true
+rm /usr/bin/tty
+#rm udhcpc
+#rm udhcpd
+rm umount
+rm uname
+rm uncompress
+rm /usr/bin/unexpand
+rm /usr/bin/uniq
+#rm unix2dos
+#rm unlzma
+#rm unlzop
+#rm unxz
+#rm unzip
+rm /usr/bin/uptime
+#rm usleep
+#rm uudecode
+#rm uuencode
+#rm vconfig
+#rm vi
+rm /usr/bin/watch
+#rm watchdog
+rm /usr/bin/wc
+#rm wget
+rm which
+rm /usr/bin/which
+rm /usr/bin/who
+rm /usr/bin/whoami
+#rm /usr/bin/xargs
+#rm xz
+#rm xzcat
+rm /usr/bin/yes
+rm zcat
+rm rm
+# need to move some of the symlinks to their proper places
+# also fake symlink busybox to usr/bin
+ln -s /bin/busybox /usr/bin/busybox
+./busybox --help | busybox grep 'Currently defined functions:' -A300 | busybox grep -v 'Currently defined functions:' | busybox tr , '\n' | busybox xargs -n1 busybox ln -fs busybox
+# cleanup unwanted busyboxen
+mv md5sum /usr/bin/md5sum
+mv diff /usr/bin/diff
+rm /bin/find
+rm /bin/modprobe
+rm /bin/modinfo
+rm /bin/rmmod
+rm /bin/lsmod
+rm /bin/depmod
+rm /bin/insmod
+rm /bin/init
+rm /bin/stat
+rm /bin/chroot
+rm /bin/losetup
+rm /bin/xargs
+mv mount.bak mount
+mv cpio.bak cpio
+#mv chroot.bak chroot
+mv cp.bak cp
+mv sh.bak sh
+mv kmod.bak kmod
+mv tar.bak tar
+mv grep.bak grep
+mv egrep.bak egrep
+mv fgrep.bak fgrep
+mv cat.bak cat
+mv ps.bak ps
+mv run-parts.bak run-parts
+mv ls.bak ls
 # Truncating logs
 for FILE in $(find /var/log/ -type f)
 do
@@ -57,3 +305,4 @@ done
 
 #but fail2ban doesnt like no auth.og 
 touch /var/log/auth.log
+

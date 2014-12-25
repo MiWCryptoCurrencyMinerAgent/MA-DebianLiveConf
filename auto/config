@@ -1,7 +1,6 @@
 #/bin/sh
 APT_CACHER="http://localhost:3142"
 APT_CACHER_BIN="http://localhost:3142"
-#APT_MIRROR="mirror.internode.on.net"
 APT_MIRROR="ftp.debian.org"
 lb config noauto --distribution sid
 lb config noauto --parent-distribution sid

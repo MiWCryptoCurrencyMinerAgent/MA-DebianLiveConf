@@ -1,5 +1,5 @@
 #!/bin/bash
-## Customised for xpmagent v1
+## Customised for MinerAgent v1
 ## live-config(7) - System Configuration Components
 ## Copyright (C) 2006-2013 Daniel Baumann <mail@daniel-baumann.ch>
 ##
@@ -48,7 +48,7 @@ Config ()
                 r3=`od -vAn -N2 -x < /dev/urandom`
                 r4=`od -vAn -N2 -x < /dev/urandom`
 	
-		LIVE_SPACES_HOSTNAME="X$r1-P$r2-$r3-M$r4"
+		LIVE_SPACES_HOSTNAME="M$r1-A$r2-$r3-$r4"
 		LIVE_HOSTNAME=`echo $LIVE_SPACES_HOSTNAME | sed 's/ //g'`
 		echo "${LIVE_HOSTNAME}" > /etc/hostname
 

@@ -1,0 +1,32 @@
+=Changelog=
+1.0 Internal Test
+* includes xolokram primecoin miner 0.7
+1.1 Internal Release
+* includes xolokram primecoin miner 0.8
+1.2 Public Release
+* includes xolokram miner XPM:0.8 PTS:0.7 RC2
+* linux-3.11-2 openssl-1.0.1e openssh-6.4p1 libboost-1.54 db-6.0 htop-1.0.2 fail2ban-0.8.11
+1.3 Public Release
+* added verify-miner and public key. updated sigs
+* includes jhPrimeMiner tandyuk 3.3beta
+* includes jhProtoMiner PimenovAlexander linux-port 0.1a
+* linux-3.12
+1.4 Public Release
+* includes datacoin mining examples and scripts
+* includes jhPrimeminer-Aero V16.5 by clintar
+* includes DHCP autoconfiguration
+* added vmwgfx.enable_fbdev=1 to kernel params to fix vmware no console bug in linux >3.9
+1.4.1 Update Release
+* includes UncleBob minerd for QRK quark mining
+* minerd for generic scrypt cpu mining... (LTC DOGE etc)
+* fixed bug where / and : are needed chars in dhcp autoconf
+* added 2 second time delay to supervisor generate for vmware timing issue
+* added arkhebuz primewatch script
+1.5 Update
+* adds dga fastrie for Riecoin
+* adds cpuminer-multi for cryptonight and x11
+* adds cpuminer-LJ-multi for no AES LucasJones CPU cpu-jackpotcoin
+* clintar xptminer-clintar for metiscoin
+* wolf9466 cpuminer for Monero Bytecoin
+* update xolominer
+* downgrade to db5.3 for debian bug 748192
